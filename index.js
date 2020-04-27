@@ -58,10 +58,30 @@ app.delete('/api/persons/:id', (request, response) => {
 });
 
 app.post('/api/persons', (request, response) => {
+  const body = request.body;
+
+  if (!body.name || !body.number) {
+    return response.status(400).json({
+      error: 'name or number missing',
+    });
+  }
+
+  const nameExists =
+    persons.some((p) => p.name.toLowerCase() === body.name.toLowerCase()) >= 1 ? true : false;
+
+  if (nameExists) {
+    return response.status(400).json({
+      error: 'name must be unique',
+    });
+  }
+
   const randomId = Math.floor(Math.random() * 1000000);
 
-  const person = request.body;
-  person.id = randomId;
+  const person = {
+    name: body.name,
+    number: body.number,
+    id: randomId,
+  };
 
   persons = persons.concat(person);
 
