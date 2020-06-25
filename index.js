@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 app.get('/info', (req, res) => {
   var d = new Date();
   Person.find({}).then((result) => {
-    res.send(`<p>Phonebook has info for ${result.length} people. <br/> ${d}</p>`);
+    res.send(`<p>Phonebook's database has info for ${result.length} people. <br/> ${d}</p>`);
   });
 });
 
