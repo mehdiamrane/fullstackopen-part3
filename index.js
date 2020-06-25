@@ -3,10 +3,9 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 
-// Note: changed baseUrl in frontend (src/services/persons.js) by "http://localhost:3001/api/persons"
-
 app.use(cors());
 app.use(express.json());
+app.use(express.static('build'));
 
 let persons = [
   {
