@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 
 app.use(express.json());
 
@@ -25,6 +26,8 @@ let persons = [
     id: 4,
   },
 ];
+
+app.use(morgan('tiny'));
 
 app.get('/', (req, res) => {
   res.send('<h1>Hello World!</h1>');
