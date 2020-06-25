@@ -57,7 +57,6 @@ app.post('/api/persons', (request, response) => {
     persons = result;
   });
 
-  // Not working yet
   const body = request.body;
 
   if (!body.name || !body.number) {
@@ -75,17 +74,14 @@ app.post('/api/persons', (request, response) => {
     });
   }
 
-  const randomId = Math.floor(Math.random() * 1000000);
-
-  const person = {
+  const person = new Person({
     name: body.name,
     number: body.number,
-    id: randomId,
-  };
+  });
 
-  persons = persons.concat(person);
-
-  response.json(person);
+  person.save().then((savedPerson) => {
+    response.json(savedPerson);
+  });
 });
 
 const PORT = process.env.PORT;
